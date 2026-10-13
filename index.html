@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendidikan Moral Tahun 3 - K-Pop Demon Hunter</title>
+    <title>K-Pop Demon Hunter: Misi Penyelamat Moral (Tahun 3)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Orbitron & Fredoka -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Fredoka', cursive, sans-serif;
-            background: radial-gradient(circle at center, #1b022d 0%, #0c0018 70%, #05000a 100%);
+            background: radial-gradient(circle at center, #1e0533 0%, #0a0112 80%, #030008 100%);
             min-height: 100vh;
             color: #ffffff;
             user-select: none;
             overflow-x: hidden;
         }
 
-        .font-orbitron {
-            font-family: 'Orbitron', sans-serif;
-        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
 
-        /* Neon Glow Utility Effects */
+        /* Neon & Glow Effects */
         .neon-border-pink {
             border-color: #ff007f;
             box-shadow: 0 0 15px rgba(255, 0, 127, 0.5), inset 0 0 10px rgba(255, 0, 127, 0.3);
@@ -53,11 +51,55 @@
             text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
         }
 
-        /* Hunter Stage Card Hover */
+        /* Character & Demon Battle Animations */
+        @keyframes floatIdle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .animate-idle {
+            animation: floatIdle 3s infinite ease-in-out;
+        }
+
+        @keyframes demonHit {
+            0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+            20% { transform: scale(0.85) rotate(-10deg); filter: brightness(3) hue-rotate(90deg); }
+            40% { transform: scale(1.1) rotate(10deg); filter: brightness(2) red; }
+            100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+        }
+
+        .anim-hit {
+            animation: demonHit 0.5s ease-out;
+        }
+
+        @keyframes attackSlash {
+            0% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(60px) scale(1.2); }
+            100% { transform: translateX(0) scale(1); }
+        }
+
+        .anim-attack {
+            animation: attackSlash 0.4s ease-in-out;
+        }
+
+        @keyframes floatDamage {
+            0% { opacity: 1; transform: translateY(0) scale(1.2); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
+        }
+
+        .floating-damage {
+            position: absolute;
+            animation: floatDamage 0.8s ease-out forwards;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+            pointer-events: none;
+            z-index: 50;
+        }
+
         .blade-card {
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
         }
 
         .blade-card:hover {
@@ -65,25 +107,32 @@
             box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
         }
 
-        /* Animations */
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 8px #ff007f); }
-            50% { opacity: 1; filter: drop-shadow(0 0 18px #00f0ff); }
+        .char-select-card {
+            transition: all 0.3s ease;
         }
 
-        .pulse-hunter {
-            animation: pulseGlow 2s infinite ease-in-out;
+        .char-select-card:hover {
+            transform: translateY(-6px);
+            border-color: #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
         }
 
-        .shake-anim {
+        .char-selected {
+            border-color: #00f0ff !important;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.8) !important;
+            background: linear-gradient(180deg, rgba(0, 240, 255, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+        }
+
+        /* Screen Shake */
+        .shake-screen {
             animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         @keyframes shake {
-            10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-1deg); }
-            20%, 80% { transform: translate3d(4px, 0, 0) rotate(2deg); }
-            30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotate(-2deg); }
-            40%, 60% { transform: translate3d(6px, 0, 0) rotate(1deg); }
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
         }
 
         .bounce-in {
@@ -92,187 +141,223 @@
 
         @keyframes bounceIn {
             0% { opacity: 0; transform: scale(0.4); }
-            70% { transform: scale(1.05); }
             100% { opacity: 1; transform: scale(1); }
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d001a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ff007f;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00f0ff;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0c0018; }
+        ::-webkit-scrollbar-thumb { background: #ff007f; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen justify-between relative">
 
-    <!-- Background Cyberpunk Neon Grid Overlay -->
-    <div class="fixed inset-0 pointer-events-none z-0 opacity-20 bg-[linear-gradient(to_right,#ff007f15_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff15_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    <!-- Cyber Background Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20 bg-[linear-gradient(to_right,#ff007f15_1px,transparent_1px),linear-gradient(to_bottom,#00f0ff15_1px,transparent_1px)] bg-[size:35px_35px]"></div>
 
-    <header class="bg-slate-950/80 backdrop-blur-md border-b-2 border-pink-500/50 p-4 sticky top-0 z-40 shadow-2xl">
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-950/90 backdrop-blur-md border-b-2 border-pink-500/50 p-3 md:p-4 sticky top-0 z-40 shadow-2xl">
         <div class="max-w-4xl mx-auto flex justify-between items-center relative z-10">
             <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pink-600 to-cyan-400 p-0.5 flex items-center justify-center shadow-lg pulse-hunter">
-                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-cyan-400 text-xl font-bold">
-                        ⚡
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-600 to-cyan-400 p-0.5 flex items-center justify-center shadow-lg">
+                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-cyan-400 text-lg">
+                        🎤
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-black font-orbitron tracking-wider neon-text-pink leading-none">
-                        MORAL DEMON HUNTER
+                    <h1 class="text-lg md:text-2xl font-black font-orbitron tracking-wider neon-text-pink leading-none">
+                        K-POP DEMON HUNTER
                     </h1>
-                    <p class="text-xs text-cyan-400 font-semibold tracking-wide">Pendidikan Moral Tahun 3</p>
+                    <p class="text-[10px] md:text-xs text-cyan-400 font-semibold">Misi Penyelamat Moral Tahun 3</p>
                 </div>
             </div>
 
-            <!-- Header Action Controls -->
-            <div class="flex items-center space-x-2 md:space-x-3">
-                <button id="btn-bgm" onclick="toggleBGM()" class="bg-slate-900 hover:bg-slate-800 text-pink-400 px-3 py-2 rounded-xl text-xs md:text-sm border border-pink-500/40 transition flex items-center gap-2">
-                    <i id="icon-bgm" class="fas fa-music"></i> <span class="hidden sm:inline">K-BGM</span>
+            <!-- Audio & Leaderboard Controls -->
+            <div class="flex items-center space-x-2">
+                <button id="btn-bgm" onclick="toggleBGM()" class="bg-slate-900 hover:bg-slate-800 text-pink-400 px-3 py-2 rounded-xl text-xs border border-pink-500/40 transition flex items-center gap-1.5">
+                    <i id="icon-bgm" class="fas fa-music"></i> <span class="hidden sm:inline">BGM</span>
                 </button>
-                <button id="btn-sfx" onclick="toggleSFX()" class="bg-slate-900 hover:bg-slate-800 text-cyan-400 px-3 py-2 rounded-xl text-xs md:text-sm border border-cyan-500/40 transition flex items-center gap-2">
+                <button id="btn-sfx" onclick="toggleSFX()" class="bg-slate-900 hover:bg-slate-800 text-cyan-400 px-3 py-2 rounded-xl text-xs border border-cyan-500/40 transition flex items-center gap-1.5">
                     <i id="icon-sfx" class="fas fa-volume-up"></i> <span class="hidden sm:inline">SFX</span>
                 </button>
-                <button onclick="openLeaderboard()" class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm shadow-lg transition flex items-center gap-2 font-orbitron">
-                    <i class="fas fa-trophy text-slate-900"></i> <span class="hidden sm:inline">SKOR</span>
+                <button onclick="openLeaderboard()" class="bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black px-3 py-2 rounded-xl text-xs shadow-lg transition flex items-center gap-1.5 font-orbitron">
+                    <i class="fas fa-trophy"></i> <span class="hidden sm:inline">SKOR</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow flex items-center justify-center p-4 relative z-10">
-        
-        <!-- ================= 1. START SCREEN ================= -->
-        <div id="view-start" class="max-w-xl w-full bg-slate-950/90 border-2 neon-border-pink rounded-3xl p-6 md:p-8 text-center shadow-2xl relative overflow-hidden backdrop-blur-xl">
-            <div class="absolute -top-12 -left-12 w-36 h-36 bg-pink-600/30 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-cyan-500/30 rounded-full blur-3xl"></div>
+    <main id="main-stage" class="flex-grow flex items-center justify-center p-3 md:p-4 relative z-10">
 
+        <!-- ================= VIEW 1: CHARACTER SELECT & START ================= -->
+        <div id="view-start" class="max-w-2xl w-full bg-slate-950/90 border-2 neon-border-pink rounded-3xl p-5 md:p-8 text-center shadow-2xl relative backdrop-blur-xl">
             <div class="relative z-10">
-                <div class="flex justify-center mb-3 space-x-4">
-                    <span class="text-5xl md:text-6xl animate-bounce" style="animation-delay: 0s">🎤</span>
-                    <span class="text-5xl md:text-6xl animate-bounce" style="animation-delay: 0.15s">🗡️</span>
-                    <span class="text-5xl md:text-6xl animate-bounce" style="animation-delay: 0.3s">👾</span>
+                <div class="inline-block px-4 py-1 rounded-full bg-pink-950/80 border border-pink-500/50 text-pink-300 text-xs font-orbitron mb-2">
+                    ⚡ RPG BATTLE ADVENTURE
                 </div>
-
-                <h2 class="text-2xl md:text-4xl font-black font-orbitron neon-text-cyan mb-2 tracking-wide">
-                    MISI PEMBURU DEMON!
+                <h2 class="text-2xl md:text-4xl font-black font-orbitron neon-text-cyan mb-2">
+                    MISI PENYELAMAT MORAL
                 </h2>
-                <p class="text-slate-300 text-sm md:text-base mb-6 leading-relaxed">
-                    Kalahkan Demon Dosa dengan Kuasa Nilai Moral Tahun 3! Kumpul tenaga combo dan lindungi 3 nyawa Hunter kamu!
+                <p class="text-slate-300 text-xs md:text-sm mb-6">
+                    Pilih Watak K-Pop Hunter kamu, kembara melalui 3 Peta dan hapuskan Demon Dosa dengan Kuasa Nilai Moral!
                 </p>
 
-                <div class="mb-6 text-left bg-slate-900/90 p-4 rounded-2xl border border-pink-500/40">
-                    <label for="player-name" class="block text-xs font-orbitron font-bold text-pink-400 mb-2 tracking-wider">
+                <!-- Input Player Name -->
+                <div class="mb-6 text-left bg-slate-900/90 p-3.5 md:p-4 rounded-2xl border border-pink-500/30">
+                    <label for="player-name" class="block text-xs font-orbitron font-bold text-pink-400 mb-1.5">
                         <i class="fas fa-user-ninja text-cyan-400"></i> NAMA HUNTER MURID:
                     </label>
                     <input type="text" id="player-name" placeholder="Contoh: Raziq Hunter / Maya K-Pop" 
-                           class="w-full px-4 py-3 bg-slate-950 border-2 border-cyan-500 focus:border-pink-500 rounded-xl text-white outline-none font-bold text-base md:text-lg transition shadow-inner">
+                           class="w-full px-4 py-2.5 bg-slate-950 border-2 border-cyan-500 focus:border-pink-500 rounded-xl text-white outline-none font-bold text-sm md:text-base transition">
                 </div>
 
-                <button onclick="startGame()" class="w-full bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 hover:from-pink-500 hover:to-cyan-400 text-white font-black font-orbitron text-lg md:text-xl py-4 px-6 rounded-2xl shadow-xl transform active:scale-95 transition flex items-center justify-center gap-3 border-b-4 border-purple-900">
-                    <i class="fas fa-bolt text-yellow-300 text-2xl"></i> MULA BATTLE NOW!
+                <!-- Character Selection Cards -->
+                <div class="text-left mb-6">
+                    <label class="block text-xs font-orbitron font-bold text-cyan-400 mb-2">
+                        <i class="fas fa-id-badge"></i> PILIH WATAK HUNTER:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2.5 md:gap-4">
+                        <!-- Char 1 -->
+                        <div onclick="selectCharacter('Blade Dancer', '🗡️', 'Jurus Tarian Pedang')" id="char-card-0" class="char-select-card char-selected bg-slate-900 border-2 border-slate-700 rounded-2xl p-3 text-center cursor-pointer">
+                            <div class="text-3xl md:text-4xl mb-1 animate-idle">🗡️</div>
+                            <div class="font-orbitron font-extrabold text-xs text-pink-400">Blade Dancer</div>
+                            <div class="text-[10px] text-slate-400 mt-1">Jurus Tarian Pedang</div>
+                        </div>
+                        <!-- Char 2 -->
+                        <div onclick="selectCharacter('Neo Vocalist', '🎤', 'Gema Suara Suci')" id="char-card-1" class="char-select-card bg-slate-900 border-2 border-slate-700 rounded-2xl p-3 text-center cursor-pointer">
+                            <div class="text-3xl md:text-4xl mb-1 animate-idle">🎤</div>
+                            <div class="font-orbitron font-extrabold text-xs text-cyan-400">Neo Vocalist</div>
+                            <div class="text-[10px] text-slate-400 mt-1">Gema Suara Suci</div>
+                        </div>
+                        <!-- Char 3 -->
+                        <div onclick="selectCharacter('Rhythm Guardian', '🛡️', 'Perisai Irama Moral')" id="char-card-2" class="char-select-card bg-slate-900 border-2 border-slate-700 rounded-2xl p-3 text-center cursor-pointer">
+                            <div class="text-3xl md:text-4xl mb-1 animate-idle">🛡️</div>
+                            <div class="font-orbitron font-extrabold text-xs text-amber-400">Rhythm Guardian</div>
+                            <div class="text-[10px] text-slate-400 mt-1">Perisai Irama Moral</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start Battle Button -->
+                <button onclick="startGame()" class="w-full bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 hover:from-pink-500 hover:to-cyan-400 text-white font-black font-orbitron text-base md:text-xl py-3.5 px-6 rounded-2xl shadow-xl transform active:scale-95 transition flex items-center justify-center gap-3 border-b-4 border-purple-900">
+                    <i class="fas fa-play text-yellow-300"></i> MULA PENGEMBARAAN!
                 </button>
-
-                <div class="mt-6 flex justify-around text-xs font-semibold text-slate-400 border-t border-slate-800/80 pt-4">
-                    <span><i class="fas fa-shield-alt text-pink-500"></i> 3 Perisai Nyawa</span>
-                    <span><i class="fas fa-brain text-cyan-400"></i> Soalan Dirandom</span>
-                    <span><i class="fas fa-fire text-yellow-400"></i> Combo Multiplier</span>
-                </div>
             </div>
         </div>
 
-        <!-- ================= 2. GAMEPLAY SCREEN ================= -->
-        <div id="view-game" class="hidden max-w-2xl w-full flex flex-col gap-4">
+        <!-- ================= VIEW 2: RPG BATTLE STAGE & QUESTION ARENA ================= -->
+        <div id="view-game" class="hidden max-w-3xl w-full flex flex-col gap-3 md:gap-4 relative">
             
-            <!-- Status Header Bar -->
-            <div class="bg-slate-950/90 border-2 neon-border-cyan rounded-2xl p-4 flex justify-between items-center shadow-2xl backdrop-blur-md">
-                <!-- Score & Energy Bar -->
-                <div class="flex items-center space-x-3">
-                    <div class="relative w-8 h-12 bg-slate-900 border-2 border-yellow-400 rounded-lg overflow-hidden flex flex-col justify-end shadow-md">
-                        <div id="energy-fill" class="bg-gradient-to-t from-amber-500 via-yellow-400 to-cyan-300 w-full transition-all duration-500" style="height: 0%;"></div>
-                    </div>
+            <!-- Map Stage Progress Banner -->
+            <div class="bg-slate-950/90 border border-purple-500/40 rounded-2xl p-3 flex justify-between items-center text-xs font-orbitron shadow-lg">
+                <div class="flex items-center space-x-2">
+                    <span id="map-icon" class="text-lg">🏙️</span>
                     <div>
-                        <div class="text-[10px] font-orbitron text-cyan-400 uppercase tracking-widest">MATA TENAGA</div>
-                        <div id="score-display" class="text-2xl font-black font-orbitron neon-text-gold">0</div>
+                        <div class="text-[10px] text-slate-400">PETA SEKARANG</div>
+                        <div id="map-title" class="text-cyan-400 font-bold">1. Bandar Cyber Neon</div>
                     </div>
                 </div>
-
-                <!-- Combo Badge -->
-                <div id="streak-badge" class="hidden bg-slate-900 border-2 border-pink-500 px-3 py-1 rounded-full text-xs font-orbitron text-pink-400 font-bold animate-pulse">
-                    ⚡ COMBO x<span id="streak-count">0</span>
+                <div class="text-right">
+                    <div class="text-[10px] text-slate-400">PEMBUNUH DEMON</div>
+                    <div id="demon-defeated-count" class="text-pink-400 font-bold">0 / 3 Tewas</div>
                 </div>
+            </div>
 
-                <!-- Lives/Shields Display -->
-                <div class="flex flex-col items-end">
-                    <div class="text-[10px] font-orbitron text-pink-400 uppercase tracking-widest mb-1">PERISAI NYAWA</div>
-                    <div id="lives-container" class="flex space-x-1 text-xl md:text-2xl">
-                        <span class="text-pink-500">💖</span>
-                        <span class="text-pink-500">💖</span>
-                        <span class="text-pink-500">💖</span>
+            <!-- BATTLE ARENA (Hunter vs Demon) -->
+            <div class="bg-slate-950/90 border-2 neon-border-cyan rounded-3xl p-4 md:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+                
+                <!-- Damage Floating Text Anchor -->
+                <div id="battle-fx-anchor" class="absolute inset-0 pointer-events-none"></div>
+
+                <div class="grid grid-cols-2 gap-4 items-center">
+                    
+                    <!-- LEFT: HUNTER PLAYER -->
+                    <div id="hunter-sprite-box" class="flex flex-col items-center text-center p-2 rounded-2xl bg-slate-900/50 border border-slate-800">
+                        <div id="hunter-avatar" class="text-5xl md:text-6xl mb-1 animate-idle">🗡️</div>
+                        <div id="hunter-name-display" class="font-orbitron font-bold text-xs md:text-sm text-cyan-400">Hunter Murid</div>
+                        <div id="hunter-class-display" class="text-[10px] text-pink-300 mb-2">Blade Dancer</div>
+                        
+                        <!-- Hunter Lives / Hearts -->
+                        <div id="hunter-lives" class="flex space-x-1 text-base md:text-xl">
+                            <span class="text-pink-500">💖</span>
+                            <span class="text-pink-500">💖</span>
+                            <span class="text-pink-500">💖</span>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: DEMON MONSTER -->
+                    <div id="demon-sprite-box" class="flex flex-col items-center text-center p-2 rounded-2xl bg-slate-900/50 border border-slate-800">
+                        <div id="demon-avatar" class="text-5xl md:text-6xl mb-1 animate-idle">👾</div>
+                        <div id="demon-name-display" class="font-orbitron font-bold text-xs md:text-sm text-red-400">Demon Malas</div>
+                        <div class="text-[10px] text-amber-300 mb-1">HP Demon</div>
+
+                        <!-- Demon HP Bar -->
+                        <div class="w-full bg-slate-900 border border-red-500/50 rounded-full h-3.5 overflow-hidden p-0.5 shadow-inner">
+                            <div id="demon-hp-bar" class="bg-gradient-to-r from-red-600 via-pink-500 to-purple-500 h-full rounded-full transition-all duration-500" style="width: 100%;"></div>
+                        </div>
+                        <div id="demon-hp-text" class="text-[10px] font-orbitron text-slate-300 mt-1">100 / 100 HP</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Question & Answers Card -->
-            <div class="bg-slate-950/90 border-2 neon-border-pink rounded-3xl p-5 md:p-7 shadow-2xl relative backdrop-blur-xl flex flex-col">
-                <div class="flex justify-between items-center mb-3 text-xs font-orbitron font-bold uppercase tracking-wider">
-                    <span id="question-progress" class="text-cyan-400">Soalan 1 / 20</span>
+            <!-- QUESTION & ANSWER CARD -->
+            <div class="bg-slate-950/90 border-2 neon-border-pink rounded-3xl p-4 md:p-6 shadow-2xl relative backdrop-blur-xl flex flex-col">
+                
+                <div class="flex justify-between items-center mb-3 text-xs font-orbitron font-bold">
+                    <span id="question-progress" class="text-cyan-400">Soalan 1 / 15</span>
                     <span id="value-tag" class="bg-pink-950/80 text-pink-300 px-3 py-1 rounded-full border border-pink-500/40">Nilai Moral</span>
                 </div>
 
-                <!-- Question Text Container -->
-                <div id="question-box" class="bg-slate-900/90 border border-purple-500/40 p-4 md:p-6 rounded-2xl mb-5 min-h-[110px] flex items-center justify-center text-center shadow-inner">
-                    <h3 id="question-text" class="text-base md:text-xl font-bold text-white leading-relaxed">
-                        Memuatkan cabaran moral...
+                <!-- Question Text -->
+                <div id="question-box" class="bg-slate-900/90 border border-purple-500/40 p-4 rounded-2xl mb-4 min-h-[90px] flex items-center justify-center text-center shadow-inner">
+                    <h3 id="question-text" class="text-sm md:text-lg font-bold text-white leading-relaxed">
+                        Memuatkan soalan pertarungan...
                     </h3>
                 </div>
 
-                <!-- 4 Answer Options Grid -->
-                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                    <!-- Dynamic Answer Buttons Rendered Here -->
+                <!-- 4 Options Grid -->
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-2">
+                    <!-- Dynamic Answer Buttons Injected Here -->
                 </div>
 
-                <!-- Explanation / Feedback Banner -->
-                <div id="feedback-box" class="hidden rounded-2xl p-4 mt-2 text-center text-sm font-semibold transition-all">
-                    <div id="feedback-status" class="text-base font-orbitron font-extrabold mb-1"></div>
-                    <div id="feedback-text" class="text-slate-200 text-xs md:text-sm"></div>
-                    <button id="btn-next" onclick="nextQuestion()" class="mt-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-orbitron font-black px-6 py-2 rounded-xl transition shadow-lg inline-flex items-center gap-2">
-                        SETERUSNYA <i class="fas fa-arrow-right"></i>
+                <!-- Feedback & Next Button -->
+                <div id="feedback-box" class="hidden rounded-2xl p-3.5 mt-2 text-center text-xs md:text-sm font-semibold transition-all">
+                    <div id="feedback-status" class="text-sm md:text-base font-orbitron font-extrabold mb-1"></div>
+                    <div id="feedback-text" class="text-slate-200 text-xs"></div>
+                    <button id="btn-next" onclick="nextQuestion()" class="mt-2.5 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-orbitron font-black px-5 py-2 rounded-xl transition shadow-lg inline-flex items-center gap-2 text-xs md:text-sm">
+                        SERANGAN SETERUSNYA <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= 3. GAME OVER / RESULT VIEW ================= -->
+        <!-- ================= VIEW 3: GAME OVER / VICTORY RESULT ================= -->
         <div id="view-result" class="hidden max-w-xl w-full bg-slate-950/95 border-2 neon-border-cyan rounded-3xl p-6 md:p-8 text-center shadow-2xl backdrop-blur-xl bounce-in">
-            <div id="result-icon" class="text-6xl md:text-7xl mb-2">🏆</div>
-            <h2 id="result-title" class="text-2xl md:text-4xl font-black font-orbitron neon-text-cyan mb-2">HUNTER CEMERLANG!</h2>
-            <p id="result-subtitle" class="text-slate-300 text-sm md:text-base mb-6">Kamu berjaya menghapuskan Demon Dosa dengan amalan nilai moral yang terpuji!</p>
+            <div id="result-icon" class="text-6xl md:text-7xl mb-2">👑</div>
+            <h2 id="result-title" class="text-2xl md:text-4xl font-black font-orbitron neon-text-cyan mb-2">MISI TUNTAS!</h2>
+            <p id="result-subtitle" class="text-slate-300 text-xs md:text-sm mb-6">Kamu telah menyelamatkan dunia daripada Demon Dosa dengan amalan moral yang terpuji!</p>
 
-            <div class="bg-slate-900/90 border border-purple-500/40 rounded-2xl p-4 mb-6 grid grid-cols-2 gap-4 shadow-inner">
-                <div class="text-center p-2 border-r border-slate-800">
-                    <div class="text-xs font-orbitron text-slate-400">JUMLAH MATA</div>
-                    <div id="final-score" class="text-3xl font-black font-orbitron neon-text-gold">0</div>
+            <div class="bg-slate-900/90 border border-purple-500/40 rounded-2xl p-4 mb-6 grid grid-cols-3 gap-2 shadow-inner text-center">
+                <div class="p-1 border-r border-slate-800">
+                    <div class="text-[10px] font-orbitron text-slate-400">JUMLAH MATA</div>
+                    <div id="final-score" class="text-xl md:text-2xl font-black font-orbitron neon-text-gold">0</div>
                 </div>
-                <div class="text-center p-2">
-                    <div class="text-xs font-orbitron text-slate-400">KETEPATAN MORAL</div>
-                    <div id="final-correct" class="text-3xl font-black font-orbitron neon-text-pink">0</div>
+                <div class="p-1 border-r border-slate-800">
+                    <div class="text-[10px] font-orbitron text-slate-400">DEMON TEWAS</div>
+                    <div id="final-demons" class="text-xl md:text-2xl font-black font-orbitron neon-text-pink">0</div>
+                </div>
+                <div class="p-1">
+                    <div class="text-[10px] font-orbitron text-slate-400">KETEPATAN</div>
+                    <div id="final-correct" class="text-xl md:text-2xl font-black font-orbitron neon-text-cyan">0/0</div>
                 </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="restartGame()" class="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black font-orbitron py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                <button onclick="restartGame()" class="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-black font-orbitron py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs md:text-sm">
                     <i class="fas fa-redo"></i> MAIN LAGI
                 </button>
-                <button onclick="openLeaderboard()" class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black font-orbitron py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                <button onclick="openLeaderboard()" class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black font-orbitron py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs md:text-sm">
                     <i class="fas fa-trophy"></i> PAPAN SKOR
                 </button>
             </div>
@@ -280,9 +365,9 @@
 
     </main>
 
+    <!-- ================= LEADERBOARD MODAL ================= -->
     <div id="modal-leaderboard" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-950 border-2 neon-border-pink rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
-            <!-- Modal Header -->
             <div class="bg-slate-900/90 p-4 border-b border-pink-500/30 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <span class="text-2xl">🏆</span>
@@ -293,20 +378,19 @@
                 </button>
             </div>
 
-            <!-- Modal Content (Records Table) -->
             <div class="p-4 overflow-y-auto flex-grow">
                 <table class="w-full text-left text-xs md:text-sm text-slate-200">
                     <thead class="bg-slate-900 font-orbitron text-cyan-400 uppercase text-[10px] md:text-xs">
                         <tr>
-                            <th class="p-3 rounded-l-lg">RANK</th>
-                            <th class="p-3">NAMA MURID</th>
-                            <th class="p-3 text-center">BETUL</th>
-                            <th class="p-3 text-right">MATA</th>
-                            <th class="p-3 rounded-r-lg text-right">TARIKH</th>
+                            <th class="p-2.5 rounded-l-lg">RANK</th>
+                            <th class="p-2.5">HUNTER</th>
+                            <th class="p-2.5 text-center">DEMON</th>
+                            <th class="p-2.5 text-right">MATA</th>
+                            <th class="p-2.5 rounded-r-lg text-right">TARIKH</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboard-body" class="divide-y divide-slate-800/80">
-                        <!-- Dynamic Records Injected via JS -->
+                        <!-- Injected via JS -->
                     </tbody>
                 </table>
                 <div id="leaderboard-empty" class="hidden text-center py-8 text-slate-400">
@@ -315,22 +399,22 @@
                 </div>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="bg-slate-900/90 p-4 border-t border-slate-800 flex justify-between items-center">
+            <div class="bg-slate-900/90 p-3.5 border-t border-slate-800 flex justify-between items-center">
                 <button onclick="clearRecords()" class="text-xs bg-red-950/80 hover:bg-red-900 text-red-300 font-bold px-3 py-2 rounded-lg border border-red-700/50 transition flex items-center gap-1.5">
                     <i class="fas fa-trash-alt"></i> Padam Rekod
                 </button>
-                <button onclick="closeLeaderboard()" class="bg-slate-800 hover:bg-slate-700 text-white font-orbitron font-bold px-4 py-2 rounded-xl text-xs md:text-sm transition">
+                <button onclick="closeLeaderboard()" class="bg-slate-800 hover:bg-slate-700 text-white font-orbitron font-bold px-4 py-2 rounded-xl text-xs transition">
                     Tutup
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Mandatory Copyright Footer -->
     <footer class="bg-slate-950/90 border-t border-purple-900/50 py-3 text-center text-xs text-slate-400 z-10 relative">
         <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
             <div>
-                &copy; <span id="year-span"></span> Pendidikan Moral Tahun 3 - K-Pop Demon Hunter Edition
+                &copy; <span id="year-span"></span> Pendidikan Moral Tahun 3 - K-Pop Demon Hunter RPG
             </div>
             <div class="font-bold text-pink-400 bg-slate-900/90 px-3 py-1 rounded-full border border-pink-500/40 shadow-sm">
                 Direka Khas oleh Cikgu Zulaikha
@@ -339,8 +423,20 @@
     </footer>
 
     <script>
-        // --- 1. PENDIDIKAN MORAL TAHUN 3 QUESTION BANK ---
+        // --- 1. MORAL TAHUN 3 QUESTION BANK (14 Core Values) ---
         const questionBank = [
+            {
+                unit: "Kepercayaan kepada Tuhan",
+                question: "Mengapakah kita perlu bersyukur dan menghargai alam sekitar ciptaan Tuhan?",
+                options: [
+                    "Agar alam kekal bersih dan selamat untuk semua makhluk.",
+                    "Supaya kita boleh mengotorkan sungai sesuka hati.",
+                    "Kerana alam sekitar tidak ada kegunaan.",
+                    "Agar kawasan perumahan menjadi busuk."
+                ],
+                answer: 0,
+                explanation: "Bersyukur kepada Tuhan ditunjukkan dengan menjaga kebersihan ciptaan-Nya."
+            },
             {
                 unit: "Baik Hati",
                 question: "Jiran kamu sedang membimbing basikal yang bocor tayar. Apakah tindakan moral yang patut kamu lakukan?",
@@ -358,7 +454,7 @@
                 question: "Kamu terjumpa wang RM5 di dalam bilik darjah. Apakah tindakan yang bertanggungjawab?",
                 options: [
                     "Menyerahkan wang tersebut kepada guru kelas.",
-                    "Menggunakan wang itu untuk membeli gula-gula di kantin.",
+                    "Menggunakan wang itu untuk membeli gula-gula.",
                     "Memasukkan wang tersebut ke dalam poket sendiri.",
                     "Sembunyikan wang di bawah meja rakan."
                 ],
@@ -508,40 +604,39 @@
                 ],
                 answer: 0,
                 explanation: "Berdiri tegak semasa lagu kebangsaan menunjukkan semangat patriotik dan hormat."
-            },
-            {
-                unit: "Kasih Sayang",
-                question: "Apakah cara terbaik menghargai pengorbanan kedua ibu bapa?",
-                options: [
-                    "Belajar bersungguh-sungguh dan mendengar nasihat.",
-                    "Meminta barangan mahal setiap minggu.",
-                    "Membantah suruhan ibu bapa.",
-                    "Membiarkan ibu bapa membuat kerja rumah seorang diri."
-                ],
-                answer: 0,
-                explanation: "Menghormati dan mendengar nasihat ibu bapa adalah bukti kasih sayang murid."
             }
         ];
 
-        // --- 2. GAME STATE VARIABLES ---
+        // --- 2. RPG DEMONS & MAP STAGES ---
+        const mapStages = [
+            { title: "1. Bandar Cyber Neon", icon: "🏙️", demonName: "Demon Malas", demonAvatar: "👾", hp: 300 },
+            { title: "2. Hutan Roh Evil", icon: "🌲", demonName: "Demon Tamak", demonAvatar: "👹", hp: 400 },
+            { title: "3. Istana Demon Lord", icon: "🏰", demonName: "Demon Raja Dosa", demonAvatar: "👺", hp: 500 }
+        ];
+
+        // --- 3. GAME STATE VARIABLES ---
+        let selectedCharacter = { name: 'Blade Dancer', avatar: '🗡️', skill: 'Jurus Tarian Pedang' };
+        let playerName = "";
         let currentQuestions = [];
         let currentIndex = 0;
         let score = 0;
         let lives = 3;
         let correctCount = 0;
-        let streak = 0;
-        let playerName = "";
         
-        // Audio Synth Variables
+        let currentStageIdx = 0;
+        let currentDemonMaxHp = 300;
+        let currentDemonHp = 300;
+        let demonsDefeated = 0;
+
+        // Audio Variables
         let audioCtx = null;
         let bgmTimer = null;
         let isBgmOn = true;
         let isSfxOn = true;
 
-        // Set dynamic copyright year
         document.getElementById('year-span').textContent = new Date().getFullYear();
 
-        // --- 3. WEB AUDIO SYNTHESIZER (K-Pop Style Synth BGM & SFX) ---
+        // --- 4. WEB AUDIO API SYNTHESIZER (K-Pop Dance Synth & SFX) ---
         function initAudio() {
             if (!audioCtx) {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -552,7 +647,6 @@
             }
         }
 
-        // Generic Tone Synthesizer
         function playTone(freq, duration, type = 'sine', volume = 0.2) {
             if (!isSfxOn) return;
             try {
@@ -570,39 +664,40 @@
             } catch(e) {}
         }
 
-        // K-Pop Chime Correct SFX
-        function playSoundCorrect() {
+        function playSoundAttack() {
             if (!isSfxOn) return;
             initAudio();
-            playTone(523.25, 0.08, 'triangle', 0.3); // C5
-            setTimeout(() => playTone(659.25, 0.08, 'triangle', 0.3), 70); // E5
-            setTimeout(() => playTone(783.99, 0.08, 'triangle', 0.3), 140); // G5
-            setTimeout(() => playTone(1046.50, 0.25, 'square', 0.25), 210); // C6
+            playTone(600, 0.05, 'sawtooth', 0.3);
+            setTimeout(() => playTone(900, 0.1, 'square', 0.3), 50);
+            setTimeout(() => playTone(1200, 0.2, 'sine', 0.2), 120);
         }
 
-        // Demon Glitch Wrong SFX
         function playSoundWrong() {
             if (!isSfxOn) return;
             initAudio();
-            playTone(220, 0.12, 'sawtooth', 0.35);
-            setTimeout(() => playTone(140, 0.25, 'sawtooth', 0.35), 100);
+            playTone(200, 0.15, 'sawtooth', 0.4);
+            setTimeout(() => playTone(130, 0.3, 'sawtooth', 0.4), 100);
         }
 
-        // Click SFX
+        function playSoundVictory() {
+            if (!isSfxOn) return;
+            initAudio();
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => playTone(freq, 0.15, 'triangle', 0.3), idx * 100);
+            });
+        }
+
         function playSoundClick() {
-            playTone(480, 0.04, 'sine', 0.12);
+            playTone(500, 0.04, 'sine', 0.1);
         }
 
-        // Energetic K-Pop Synth Melody Sequencer
+        // K-Pop Upbeat Synth BGM Loop
         function startBGM() {
             if (bgmTimer || !isBgmOn) return;
             initAudio();
 
-            // Upbeat Synth Dance Sequence Notes (A Minor / C Major)
-            const notes = [
-                220.00, 440.00, 329.63, 440.00, 261.63, 523.25, 392.00, 523.25,
-                196.00, 392.00, 293.66, 392.00, 174.61, 349.23, 261.63, 349.23
-            ];
+            const notes = [220, 440, 329, 440, 261, 523, 392, 523];
             let step = 0;
 
             bgmTimer = setInterval(() => {
@@ -610,23 +705,18 @@
                     try {
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        
-                        // Alternate between dance lead synth and bass
                         osc.type = step % 2 === 0 ? 'sawtooth' : 'triangle';
                         osc.frequency.setValueAtTime(notes[step], audioCtx.currentTime);
-                        
-                        gain.gain.setValueAtTime(step % 2 === 0 ? 0.025 : 0.04, audioCtx.currentTime);
+                        gain.gain.setValueAtTime(0.025, audioCtx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
-                        
                         osc.connect(gain);
                         gain.connect(audioCtx.destination);
                         osc.start();
                         osc.stop(audioCtx.currentTime + 0.18);
-                        
                         step = (step + 1) % notes.length;
                     } catch(e) {}
                 }
-            }, 180);
+            }, 190);
         }
 
         function stopBGM() {
@@ -664,9 +754,20 @@
             }
         }
 
-        // --- 4. GAMEPLAY MECHANICS ---
+        // --- 5. GAME MECHANICS & UTILITIES ---
 
-        // Array Shuffle Helper
+        function selectCharacter(name, avatar, skill) {
+            playSoundClick();
+            selectedCharacter = { name, avatar, skill };
+            for (let i = 0; i < 3; i++) {
+                const card = document.getElementById(`char-card-${i}`);
+                card.classList.remove('char-selected');
+            }
+            if (name === 'Blade Dancer') document.getElementById('char-card-0').classList.add('char-selected');
+            if (name === 'Neo Vocalist') document.getElementById('char-card-1').classList.add('char-selected');
+            if (name === 'Rhythm Guardian') document.getElementById('char-card-2').classList.add('char-selected');
+        }
+
         function shuffleArray(array) {
             const arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -686,10 +787,13 @@
             score = 0;
             lives = 3;
             correctCount = 0;
-            streak = 0;
             currentIndex = 0;
 
-            // Prepare & shuffle questions and their 4 option positions
+            currentStageIdx = 0;
+            demonsDefeated = 0;
+            loadStageData();
+
+            // Shuffle questions and options randomly
             currentQuestions = shuffleArray(questionBank).map(q => {
                 const correctText = q.options[q.answer];
                 const shuffledOpts = shuffleArray(q.options);
@@ -701,25 +805,35 @@
                 };
             });
 
-            // Toggle screens
+            // Update Hunter UI info
+            document.getElementById('hunter-avatar').textContent = selectedCharacter.avatar;
+            document.getElementById('hunter-name-display').textContent = playerName;
+            document.getElementById('hunter-class-display').textContent = selectedCharacter.name;
+
             document.getElementById('view-start').classList.add('hidden');
             document.getElementById('view-result').classList.add('hidden');
             document.getElementById('view-game').classList.remove('hidden');
 
             if (isBgmOn) startBGM();
             renderQuestion();
-            updateUI();
+            updateBattleUI();
         }
 
-        function updateUI() {
-            document.getElementById('score-display').textContent = score;
+        function loadStageData() {
+            const stg = mapStages[currentStageIdx];
+            document.getElementById('map-icon').textContent = stg.icon;
+            document.getElementById('map-title').textContent = stg.title;
+            document.getElementById('demon-avatar').textContent = stg.demonAvatar;
+            document.getElementById('demon-name-display').textContent = stg.demonName;
+            
+            currentDemonMaxHp = stg.hp;
+            currentDemonHp = stg.hp;
+            document.getElementById('demon-defeated-count').textContent = `${demonsDefeated} / 3 Tewas`;
+        }
 
-            // Energy Meter Fill Height %
-            const percent = Math.min((score / (questionBank.length * 100)) * 100, 100);
-            document.getElementById('energy-fill').style.height = `${percent}%`;
-
-            // Render Lives/Shields
-            const livesContainer = document.getElementById('lives-container');
+        function updateBattleUI() {
+            // Hunter Hearts
+            const livesContainer = document.getElementById('hunter-lives');
             livesContainer.innerHTML = '';
             for (let i = 0; i < 3; i++) {
                 if (i < lives) {
@@ -729,14 +843,10 @@
                 }
             }
 
-            // Combo Multiplier
-            const streakBadge = document.getElementById('streak-badge');
-            if (streak >= 2) {
-                streakBadge.classList.remove('hidden');
-                document.getElementById('streak-count').textContent = streak;
-            } else {
-                streakBadge.classList.add('hidden');
-            }
+            // Demon HP Bar
+            const hpPercent = Math.max(0, (currentDemonHp / currentDemonMaxHp) * 100);
+            document.getElementById('demon-hp-bar').style.width = `${hpPercent}%`;
+            document.getElementById('demon-hp-text').textContent = `${Math.max(0, currentDemonHp)} / ${currentDemonMaxHp} HP`;
         }
 
         function renderQuestion() {
@@ -746,11 +856,9 @@
             document.getElementById('value-tag').textContent = q.unit;
             document.getElementById('question-text').textContent = q.question;
 
-            // Reset feedback banner
             const feedbackBox = document.getElementById('feedback-box');
-            feedbackBox.className = 'hidden rounded-2xl p-4 mt-2 text-center text-sm font-semibold';
+            feedbackBox.className = 'hidden rounded-2xl p-3.5 mt-2 text-center text-xs md:text-sm font-semibold';
 
-            // Render 4 answer option buttons
             const container = document.getElementById('options-container');
             container.innerHTML = '';
 
@@ -765,16 +873,28 @@
 
             q.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
-                btn.className = `blade-card w-full text-left p-3.5 md:p-4 rounded-2xl bg-gradient-to-r ${gradients[idx % 4]} border-2 text-white font-semibold text-xs md:text-sm shadow-xl flex items-center space-x-3 transition active:scale-95`;
+                btn.className = `blade-card w-full text-left p-3 rounded-xl bg-gradient-to-r ${gradients[idx % 4]} border-2 text-white font-semibold text-xs md:text-sm shadow-xl flex items-center space-x-3 transition active:scale-95`;
                 btn.onclick = () => checkAnswer(idx);
                 btn.innerHTML = `
-                    <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-950/60 flex items-center justify-center font-black font-orbitron text-pink-400 flex-shrink-0 border border-white/20">
+                    <span class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-slate-950/60 flex items-center justify-center font-black font-orbitron text-pink-400 flex-shrink-0 border border-white/20 text-xs">
                         ${labels[idx]}
                     </span>
                     <span class="flex-grow">${opt}</span>
                 `;
                 container.appendChild(btn);
             });
+        }
+
+        // Show floating damage number animation over Demon
+        function spawnFloatingDamage(amount) {
+            const anchor = document.getElementById('battle-fx-anchor');
+            const el = document.createElement('div');
+            el.className = 'floating-damage text-2xl md:text-3xl';
+            el.style.right = '25%';
+            el.style.top = '30%';
+            el.textContent = `-${amount} HP!`;
+            anchor.appendChild(el);
+            setTimeout(() => el.remove(), 800);
         }
 
         function checkAnswer(selectedIndex) {
@@ -784,7 +904,6 @@
             const feedbackText = document.getElementById('feedback-text');
             const optionBtns = document.getElementById('options-container').children;
 
-            // Lock options
             for (let btn of optionBtns) {
                 btn.disabled = true;
                 btn.classList.remove('blade-card');
@@ -792,31 +911,51 @@
             }
 
             if (selectedIndex === q.answer) {
-                // Correct Answer
-                playSoundCorrect();
-                const bonus = streak * 20;
-                score += 100 + bonus;
+                // ATTACK DEMON
+                playSoundAttack();
+                score += 150;
                 correctCount++;
-                streak++;
+                const damage = 100;
+                currentDemonHp -= damage;
+
+                // Animations
+                const hunterAvatar = document.getElementById('hunter-avatar');
+                const demonAvatar = document.getElementById('demon-avatar');
+                
+                hunterAvatar.classList.add('anim-attack');
+                setTimeout(() => hunterAvatar.classList.remove('anim-attack'), 400);
+
+                demonAvatar.classList.add('anim-hit');
+                setTimeout(() => demonAvatar.classList.remove('anim-hit'), 500);
+
+                spawnFloatingDamage(damage);
 
                 optionBtns[selectedIndex].classList.remove('opacity-50');
                 optionBtns[selectedIndex].classList.add('ring-4', 'ring-cyan-400', 'bg-cyan-600');
 
                 feedbackBox.classList.remove('hidden');
                 feedbackBox.classList.add('bg-cyan-950/90', 'border-2', 'border-cyan-400', 'text-cyan-200');
-                feedbackStatus.innerHTML = `⚡ SERANGAN MORAL BERJAYA! (+${100 + bonus} Mata)`;
+                feedbackStatus.innerHTML = `⚔️ ${selectedCharacter.skill.toUpperCase()} BERJAYA! (-${damage} HP Demon)`;
                 feedbackText.textContent = q.explanation;
 
+                // Check if Demon Defeated
+                if (currentDemonHp <= 0) {
+                    demonsDefeated++;
+                    playSoundVictory();
+                    if (currentStageIdx < mapStages.length - 1) {
+                        currentStageIdx++;
+                        setTimeout(() => loadStageData(), 600);
+                    }
+                }
+
             } else {
-                // Wrong Answer
+                // DEMON ATTACKS HUNTER
                 playSoundWrong();
                 lives--;
-                streak = 0;
 
-                // Shake Game Card
-                const gameView = document.getElementById('view-game');
-                gameView.classList.add('shake-anim');
-                setTimeout(() => gameView.classList.remove('shake-anim'), 400);
+                const mainStage = document.getElementById('main-stage');
+                mainStage.classList.add('shake-screen');
+                setTimeout(() => mainStage.classList.remove('shake-screen'), 400);
 
                 optionBtns[selectedIndex].classList.remove('opacity-50');
                 optionBtns[selectedIndex].classList.add('ring-4', 'ring-red-500', 'bg-red-800');
@@ -826,11 +965,11 @@
 
                 feedbackBox.classList.remove('hidden');
                 feedbackBox.classList.add('bg-red-950/90', 'border-2', 'border-red-500', 'text-red-200');
-                feedbackStatus.innerHTML = `👾 DISERANG DEMON! (Perisai Berkualiti)`;
+                feedbackStatus.innerHTML = `👾 DISERANG DEMON! (-1 Perisai Nyawa)`;
                 feedbackText.textContent = `Jawapan betul: "${q.options[q.answer]}". ${q.explanation}`;
             }
 
-            updateUI();
+            updateBattleUI();
         }
 
         function nextQuestion() {
@@ -844,7 +983,7 @@
         }
 
         function endGame() {
-            saveRecord(playerName, score, correctCount, currentQuestions.length);
+            saveRecord(playerName, score, demonsDefeated, correctCount, currentQuestions.length);
 
             document.getElementById('view-game').classList.add('hidden');
             document.getElementById('view-result').classList.remove('hidden');
@@ -854,18 +993,19 @@
             const resultSub = document.getElementById('result-subtitle');
 
             document.getElementById('final-score').textContent = score;
+            document.getElementById('final-demons').textContent = `${demonsDefeated} Demon`;
             document.getElementById('final-correct').textContent = `${correctCount}/${currentQuestions.length}`;
 
             if (lives <= 0) {
                 resultIcon.textContent = "💔";
                 resultTitle.textContent = "PERISAI MUSNAH!";
                 resultTitle.className = "text-2xl md:text-4xl font-black font-orbitron text-red-500 mb-2";
-                resultSub.textContent = "Jangan putus asa, Hunter! Cuba lagi dan kalahkan Demon dengan amalan terpuji!";
+                resultSub.textContent = "Jangan putus asa! Cuba lagi untuk mengalahkan semua Demon dengan amalan moral!";
             } else {
                 resultIcon.textContent = "👑";
-                resultTitle.textContent = "HUNTER CEMERLANG!";
+                resultTitle.textContent = "PENYELAMAT MORAL!";
                 resultTitle.className = "text-2xl md:text-4xl font-black font-orbitron neon-text-cyan mb-2";
-                resultSub.textContent = "Tahniah! Kamu telah membuktikan nilai moral yang tinggi di atas pentas K-Pop!";
+                resultSub.textContent = "Tahniah! Kamu telah mengalahkan Demon dan menyelamatkan dunia dengan nilai moral!";
             }
         }
 
@@ -873,37 +1013,36 @@
             startGame();
         }
 
-        // --- 5. LOCALSTORAGE SCOREBOARD MANAGEMENT ---
+        // --- 6. LOCALSTORAGE LEADERBOARD ---
 
         function getRecords() {
             try {
-                const recs = localStorage.getItem('kpop_demon_moral_records');
+                const recs = localStorage.getItem('kpop_demon_rpg_records');
                 return recs ? JSON.parse(recs) : [];
             } catch (e) {
                 return [];
             }
         }
 
-        function saveRecord(name, score, correct, total) {
+        function saveRecord(name, score, demons, correct, total) {
             const records = getRecords();
             const dateStr = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: '2-digit', year: '2-digit' });
 
             records.push({
                 name: name,
+                char: selectedCharacter.name,
                 score: score,
+                demons: `${demons} Tewas`,
                 correct: `${correct}/${total}`,
                 date: dateStr,
                 timestamp: Date.now()
             });
 
-            // Sort highest score first
             records.sort((a, b) => b.score - a.score);
-
-            // Keep top 20
             const trimmed = records.slice(0, 20);
 
             try {
-                localStorage.setItem('kpop_demon_moral_records', JSON.stringify(trimmed));
+                localStorage.setItem('kpop_demon_rpg_records', JSON.stringify(trimmed));
             } catch (e) {}
         }
 
@@ -929,11 +1068,11 @@
                     const tr = document.createElement('tr');
                     tr.className = idx % 2 === 0 ? 'bg-slate-900/80' : 'bg-slate-950/50';
                     tr.innerHTML = `
-                        <td class="p-3 font-bold font-orbitron ${idx < 3 ? 'text-yellow-400' : 'text-slate-400'}">${rankBadge}</td>
-                        <td class="p-3 font-semibold text-white">${escapeHtml(rec.name)}</td>
-                        <td class="p-3 text-center text-cyan-400 font-bold">${rec.correct}</td>
-                        <td class="p-3 text-right text-pink-400 font-black font-orbitron">${rec.score}</td>
-                        <td class="p-3 text-right text-[10px] text-slate-400">${rec.date}</td>
+                        <td class="p-2.5 font-bold font-orbitron ${idx < 3 ? 'text-yellow-400' : 'text-slate-400'}">${rankBadge}</td>
+                        <td class="p-2.5 font-semibold text-white">${escapeHtml(rec.name)} <span class="text-[10px] text-pink-400">(${rec.char || 'Hunter'})</span></td>
+                        <td class="p-2.5 text-center text-cyan-400 font-bold">${rec.demons}</td>
+                        <td class="p-2.5 text-right text-pink-400 font-black font-orbitron">${rec.score}</td>
+                        <td class="p-2.5 text-right text-[10px] text-slate-400">${rec.date}</td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -948,8 +1087,8 @@
         }
 
         function clearRecords() {
-            if (confirm("Adakah anda pasti mahu memadam semua rekod papan skor murid?")) {
-                localStorage.removeItem('kpop_demon_moral_records');
+            if (confirm("Adakah anda pasti mahu memadam semua rekod papan skor?")) {
+                localStorage.removeItem('kpop_demon_rpg_records');
                 openLeaderboard();
             }
         }
